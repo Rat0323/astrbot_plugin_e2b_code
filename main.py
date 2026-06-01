@@ -234,10 +234,10 @@ class E2BCodePlugin(Star):
             logger.error(f"[E2B Code] Exception details: {traceback.format_exc()}")
             await event.send(MessageChain([Plain(f"❌ 执行异常:\n{e}")]))
 
-    @filter.command("ecode")
-    async def cmd_ecode(self, event: AstrMessageEvent):
-        """ecode 命令 - 使用帮助"""
-        help_msg = """☁️ E2B 云端代码运行器 (v1.0)使用说明
+    @filter.command("code_help")
+    async def cmd_code_help(self, event: AstrMessageEvent):
+        """code_help 命令 - 使用说明"""
+        help_msg = """☁️ E2B 云端代码运行器使用说明
 
 【执行代码】
 格式:
@@ -249,19 +249,7 @@ class E2BCodePlugin(Star):
 【绘图示例】
 /code
 import matplotlib.pyplot as plt
-import numpy as np
-x = np.linspace(0, 10, 100)
-plt.plot(x, np.sin(x))
+plt.plot([1, 2, 3])
 plt.show()
-
-【特点】
-1. 100% 云端沙箱隔离，绝不影响宿主机安全！
-2. 自动捕获绘图结果（Matplotlib/Seaborn 等）并以图片形式发送回群聊。
-3. 支持常见的科学计算与联网操作。
 """
         await event.send(MessageChain([Plain(help_msg)]))
-
-    @filter.command("code_help")
-    async def cmd_code_help(self, event: AstrMessageEvent):
-        """code_help 命令 - 使用帮助"""
-        await self.cmd_ecode(event)
