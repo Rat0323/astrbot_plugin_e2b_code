@@ -1,6 +1,6 @@
 # E2B Code Runner - AstrBot 插件 ☁️
 
-`astrbot_plugin_e2b_code` 是一款基于 [E2B](https://e2b.dev/) 安全云端沙箱的 Python 代码运行指令插件。该插件支持群聊或私聊中通过显式指令运行 Python 代码，自动捕获标准输出（Stdout）、标准错误（Stderr）、返回结果（Result），并且支持将绘图结果（如 Matplotlib/Seaborn 等）自动提取并作为图片发回聊天中。
+`astrbot_plugin_e2b_code` 是一款基于 [E2B](https://e2b.dev/) 安全云端沙箱的云端代码运行指令插件（默认运行 Python 代码）。该插件支持群聊或私聊中通过显式指令运行代码，自动捕获标准输出（Stdout）、标准错误（Stderr）、返回结果（Result），并且支持将绘图结果（如 Matplotlib 等）自动提取并发回聊天中。沙箱内置对 Python, JavaScript, TypeScript, R, Java, Bash 等环境的支持。
 
 100% 隔离的云端沙箱环境，绝不影响 AstrBot 宿主机的安全与稳定！
 

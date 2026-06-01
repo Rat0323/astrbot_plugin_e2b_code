@@ -1,16 +1,20 @@
 name: astrbot_plugin_e2b_code
-desc: ☁️ E2B Code Runner - 基于 E2B 云端沙箱的 Python 代码执行指令插件
+desc: ☁️ E2B Code Runner - 基于 E2B 云端沙箱的代码执行指令插件
 help: |
   ☁️ E2B 云端代码运行器
   
   【使用格式】
-  /code [Python代码]
+  /code [代码内容]
   或换行输入：
   /code
-  [Python代码]
+  [代码内容]
   
   【使用帮助指令】
   /code_help
+  
+  【支持语言】
+  默认 Python。内置支持 JavaScript, TypeScript, R, Java, Bash。
 version: "1.0"
 author: Rat
 repo: https://github.com/Rat0323/astrbot_plugin_e2b_code
+

@@ -241,7 +241,7 @@ class E2BCodePlugin(Star):
 
 【执行代码】
 格式:
-/code [Python代码]
+/code [代码内容]
 
 示例:
 /code print("Hello from E2B!")
@@ -251,5 +251,8 @@ class E2BCodePlugin(Star):
 import matplotlib.pyplot as plt
 plt.plot([1, 2, 3])
 plt.show()
-"""
+
+【支持语言】
+沙箱环境默认以 Python 语言运行代码。云端沙箱亦内置了 JavaScript, TypeScript, R, Java, Bash 等运行环境。"""
         await event.send(MessageChain([Plain(help_msg)]))
+
