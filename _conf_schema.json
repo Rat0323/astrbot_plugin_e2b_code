@@ -1,0 +1,26 @@
+{
+  "e2b_api_key": {
+    "description": "E2B API Key",
+    "type": "string",
+    "hint": "从 https://e2b.dev 获取的 API Key",
+    "default": ""
+  },
+  "timeout_seconds": {
+    "description": "超时时间（秒）",
+    "type": "int",
+    "hint": "代码执行的超时时间，单位为秒",
+    "default": 30
+  },
+  "admin_only": {
+    "description": "仅管理员使用",
+    "type": "bool",
+    "hint": "是否只允许管理员使用此插件",
+    "default": false
+  },
+  "default_template": {
+    "description": "默认 E2B 模板 ID",
+    "type": "string",
+    "hint": "留空使用默认 Python 沙箱模板",
+    "default": ""
+  }
+}
