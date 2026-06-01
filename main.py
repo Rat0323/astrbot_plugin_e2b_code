@@ -134,10 +134,7 @@ class E2BCodePlugin(Star):
             await event.send(MessageChain([Plain("❌ 未检测到有效代码。格式: /code [Python代码]")]))
             return
 
-        # 5. 发送开始运行消息
-        await event.send(MessageChain([Plain("🚀 正在云端沙箱中执行 Python 代码... (E2B Cloud Sandbox)")]))
-
-        # 6. 开始在 E2B 中运行
+        # 5. 开始在 E2B 中运行
         try:
             template = self.config.get("default_template", "").strip()
             sandbox_kwargs = {"api_key": api_key}
