@@ -1,4 +1,5 @@
 name: astrbot_plugin_e2b_code
+display_name: ☁️ E2B 云端沙箱代码运行器
 desc: ☁️ E2B Code Runner - 基于 E2B 云端沙箱的代码执行指令插件
 help: |
   ☁️ E2B 云端代码运行器
