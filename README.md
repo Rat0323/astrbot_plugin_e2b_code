@@ -72,8 +72,20 @@ plt.show()
 
 ---
 
-## 📦 安装与升级
+## 📦 安装与依赖说明
 
+### 自动安装（推荐）
+本插件已在 [requirements.txt](file:///C:/Users/Rat/data/plugins/astrbot_plugin_e2b_code/requirements.txt) 中声明了依赖包 `e2b-code-interpreter`。
+- 如果您是通过 AstrBot WebUI 插件市场一键安装的，平台会**自动为您安装**相关依赖。
+- 如果您是手动安装，AstrBot 在启动并加载插件时也会尝试自动安装该依赖。
+
+### 手动安装（备用）
+如果在启动时提示缺少依赖（如 `ModuleNotFoundError`），请在您的 AstrBot 运行环境中手动执行安装：
+```bash
+pip install e2b-code-interpreter>=2.2.2,<3.0.0
+```
+
+### 安装步骤
 1. 进入您的 AstrBot 目录 `data/plugins/`。
 2. 克隆本仓库：
    ```bash
