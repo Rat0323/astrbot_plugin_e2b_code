@@ -49,21 +49,17 @@ class E2BCodePlugin(Star):
         """检查用户是否为管理员"""
         return event.is_admin()
 
-    def _parse_code(self, text: str) -> str:
-        """解析 code 消息，支持单行和多行输入
+    def _parse_code(self, text: str) -> tuple[str, Optional[str]]:
+        """解析 code 消息，支持单行和多行输入并自动识别语言
 
-        格式:
-        /code print("Hello")
-        或
-        /code
-        print("Hello")
+        返回 (code, language)
         """
         # 移除 MSG_ID 标识
         text = re.sub(r'\s*\[MSG_ID:[^\]]+\]$', '', text)
 
         lines = text.split('\n')
         if not lines:
-            return ""
+            return "", None
 
         first_line = lines[0].strip()
         cmd_pattern = re.compile(r'^/?code\s*(.*)$', re.IGNORECASE)
@@ -75,12 +71,35 @@ class E2BCodePlugin(Star):
             else:
                 lines = lines[1:]
 
-        # 去除 markdown 的代码块包裹
         parsed_text = '\n'.join(lines).strip()
-        match_block = re.search(r"```(?:python)?\s*(.*?)```", parsed_text, re.DOTALL | re.IGNORECASE)
+        
+        # 匹配 markdown 代码块，如 ```python ... ``` 或 ```javascript ... ```
+        match_block = re.search(r"```([a-zA-Z0-9+#-]+)?\s*(.*?)```", parsed_text, re.DOTALL | re.IGNORECASE)
         if match_block:
-            return match_block.group(1).strip()
-        return parsed_text
+            lang_tag = (match_block.group(1) or "").strip().lower()
+            code_content = match_block.group(2).strip()
+            
+            # 语言标记规范化
+            lang_map = {
+                "py": "python",
+                "python": "python",
+                "python3": "python",
+                "js": "javascript",
+                "javascript": "javascript",
+                "node": "javascript",
+                "ts": "typescript",
+                "typescript": "typescript",
+                "r": "r",
+                "java": "java",
+                "bash": "bash",
+                "sh": "bash",
+                "shell": "bash",
+            }
+            language = lang_map.get(lang_tag, lang_tag or None)
+            return code_content, language
+            
+        return parsed_text, None
+
 
     def _stringify_output(self, value):
         if value is None:
@@ -128,10 +147,10 @@ class E2BCodePlugin(Star):
             await event.send(MessageChain([Plain("❌ 运行环境缺少 e2b-code-interpreter 依赖。")]))
             return
 
-        # 4. 解析代码
-        code = self._parse_code(event.message_str)
+        # 4. 解析代码与识别语言
+        code, language = self._parse_code(event.message_str)
         if not code:
-            await event.send(MessageChain([Plain("❌ 未检测到有效代码。格式: /code [Python代码]")]))
+            await event.send(MessageChain([Plain("❌ 未检测到有效代码。格式: /code [代码内容]")]))
             return
 
         # 5. 开始在 E2B 中运行
@@ -147,16 +166,21 @@ class E2BCodePlugin(Star):
 
             # 启动云端沙箱运行
             async with await AsyncSandbox.create(**sandbox_kwargs) as sandbox:
+                run_kwargs = {
+                    "code": code,
+                    "on_stdout": lambda msg: stdout_list.append(self._stringify_output(msg)),
+                    "on_stderr": lambda msg: stderr_list.append(self._stringify_output(msg)),
+                    "on_result": lambda res: results_list.append(res),
+                    "timeout": self.timeout_seconds
+                }
+                if language:
+                    run_kwargs["language"] = language
+
                 execution = await asyncio.wait_for(
-                    sandbox.run_code(
-                        code,
-                        on_stdout=lambda msg: stdout_list.append(self._stringify_output(msg)),
-                        on_stderr=lambda msg: stderr_list.append(self._stringify_output(msg)),
-                        on_result=lambda res: results_list.append(res),
-                        timeout=self.timeout_seconds
-                    ),
+                    sandbox.run_code(**run_kwargs),
                     timeout=self.timeout_seconds + 5
                 )
+
 
                 stdout = "".join(stdout_list).strip()
                 stderr = "".join(stderr_list).strip()
