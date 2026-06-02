@@ -9,11 +9,15 @@ help: |
   /code
   [代码内容]
   
+  【会话重置指令】
+  /code_reset （重置并清除上下文状态）
+  
   【使用帮助指令】
   /code_help
   
   【支持语言】
   默认 Python。内置支持 JavaScript, TypeScript, R, Java, Bash。
+
 version: "1.0"
 author: Rat
 repo: https://github.com/Rat0323/astrbot_plugin_e2b_code

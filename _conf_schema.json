@@ -22,5 +22,11 @@
     "type": "string",
     "hint": "留空使用默认 Python 沙箱模板",
     "default": ""
+  },
+  "session_keepalive": {
+    "description": "会话保持存活时间（秒）",
+    "type": "int",
+    "hint": "闲置多久后自动销毁云端沙箱会话（默认 300 秒/5分钟）",
+    "default": 300
   }
 }
