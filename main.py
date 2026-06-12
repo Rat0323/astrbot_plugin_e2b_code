@@ -212,11 +212,6 @@ class E2BCodePlugin(Star):
             await event.send(MessageChain([Plain("❌ 运行环境缺少 e2b-code-interpreter 依赖。")]))
             return
 
-        # 4. 检测 KEY 计划类型（仅首次）
-        if self.plan_type is None:
-            await self._detect_plan_type(api_key)
-            self._apply_plan_defaults()
-
         # 4. 解析代码与识别语言
         code, language = self._parse_code(event.message_str)
         if not code:
