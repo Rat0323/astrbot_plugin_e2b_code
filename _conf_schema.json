@@ -2,50 +2,51 @@
   "e2b_api_key": {
     "description": "E2B API Key",
     "type": "string",
-    "hint": "从 https://e2b.dev 获取的 API Key",
+    "hint": "从 https://e2b.dev/dashboard 获取",
+    "obvious_hint": true,
     "default": ""
   },
   "plan_type": {
     "description": "E2B 账户计划类型",
     "type": "string",
-    "hint": "选择你的 E2B 计划类型，影响并发和运行时长限制",
-    "default": "hobby",
-    "enum": ["hobby", "pro"]
+    "hint": "免费计划：20 并发 / 1 小时会话 / 10GB 磁盘；付费计划：100 并发 / 24 小时会话 / 20GB 磁盘",
+    "options": ["hobby", "pro"],
+    "default": "hobby"
   },
   "timeout_seconds": {
-    "description": "超时时间（秒）",
+    "description": "代码执行超时时间（秒）",
     "type": "int",
-    "hint": "代码执行的超时时间，单位为秒",
+    "hint": "单次代码执行的最大允许时间",
     "default": 30
   },
+  "session_keepalive": {
+    "description": "会话保持时间（秒）",
+    "type": "int",
+    "hint": "闲置多久后自动销毁沙箱，建议不超过计划的最大会话时长",
+    "default": 300
+  },
+  "max_sessions": {
+    "description": "最大并发沙箱数",
+    "type": "int",
+    "hint": "不要超过计划限制（hobby=20, pro=100）",
+    "default": 20
+  },
+  "max_code_length": {
+    "description": "代码最大长度（字符）",
+    "type": "int",
+    "hint": "单次提交的代码最大字符数，防止滥用",
+    "default": 10000
+  },
   "admin_only": {
-    "description": "仅管理员使用",
+    "description": "仅管理员可用",
     "type": "bool",
-    "hint": "是否只允许管理员使用此插件",
+    "hint": "开启后只有 AstrBot 管理员可以使用 /e2b 指令",
     "default": false
   },
   "default_template": {
-    "description": "默认 E2B 模板 ID",
+    "description": "E2B 沙箱模板 ID",
     "type": "string",
     "hint": "留空使用默认 Python 沙箱模板",
     "default": ""
-  },
-  "session_keepalive": {
-    "description": "会话保持存活时间（秒）",
-    "type": "int",
-    "hint": "闲置多久后自动销毁云端沙箱会话（默认 300 秒）",
-    "default": 300
-  },
-  "max_code_length": {
-    "description": "代码最大长度（字符数）",
-    "type": "int",
-    "hint": "单次提交的代码最大字符数，防止滥用（默认 10000）",
-    "default": 10000
-  },
-  "max_sessions": {
-    "description": "最大同时会话数",
-    "type": "int",
-    "hint": "系统允许同时存在的最大沙箱会话数（免费用户上限 20，付费用户上限 100）",
-    "default": 20
   }
 }
