@@ -1,25 +1,30 @@
 name: astrbot_plugin_e2b_code
 display_name: ☁️ E2B 云端沙箱代码运行器
+short_desc: 基于 E2B 云端沙箱的多语言代码运行插件，支持绘图自动回传
 desc: ☁️ E2B Code Runner - 基于 E2B 云端沙箱的代码执行指令插件
+astrbot_version: ">=4.16"
 help: |
   ☁️ E2B 云端代码运行器
   
   【使用格式】
-  /code [代码内容]
+  /e2b run [代码内容]
   或换行输入：
-  /code
+  /e2b run
   [代码内容]
   
   【会话重置指令】
-  /code_reset （重置并清除上下文状态）
+  /e2b reset （重置并清除上下文状态）
+  
+  【查看计划信息】
+  /e2b plan （查看 KEY 类型和限制）
   
   【使用帮助指令】
-  /code_help
+  /e2b help
   
   【支持语言】
   默认 Python。内置支持 JavaScript, TypeScript, R, Java, Bash。
 
-version: "1.0"
+version: "1.0.1"
 author: Rat
 repo: https://github.com/Rat0323/astrbot_plugin_e2b_code
 
