@@ -90,17 +90,27 @@ pip install e2b-code-interpreter>=2.2.2,<3.0.0
 
 ## 📄 更新日志
 
-### v1.0.1
+<details>
+<summary>v1.0.1</summary>
 
-- 修复会话内存泄漏（LRU + 过期清理 + 数量上限）
-- 指令重构为 `/e2b` 指令组（`/e2b run`, `/e2b reset`, `/e2b help`, `/e2b plan`）
-- 新增 `plan_type` 配置，手动选择免费/付费计划
+- 新增 `/e2b plan` 指令，查看计划类型和资源限制
+- 新增 `plan_type` 配置，选择免费/付费计划
 - 新增 `max_code_length` 和 `max_sessions` 配置项
-- 新增 `/e2b plan` 指令查看计划限制
+- 指令升级为 `/e2b` 指令组（`/e2b run`, `/e2b reset`, `/e2b help`, `/e2b plan`）
+- 修复长时间运行后的内存泄漏
+- 移除 `httpx` 依赖，插件更轻量
 
-### v1.0.0
+</details>
+
+<details>
+<summary>v1.0.0</summary>
 
 - 首次发布
+- 支持 E2B 云端沙箱代码执行
+- 自动捕获输出结果和绘图图片
+- 会话持久化（变量和模块自动保留）
+
+</details>
 
 ---
 
